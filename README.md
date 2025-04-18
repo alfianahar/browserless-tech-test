@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Browserless PDF Generator
+
+A Next.js application that generates PDFs from webpages using Browserless.io and Puppeteer.
+
+## Features
+
+- **API Endpoint**: Generate PDFs from any webpage with a simple JSON payload
+- **Input Validation**: Strict validation of JSON payloads
+- **Custom Image Loading**: Special handling to ensure images are loaded before PDF generation
+- **Memory-Efficient Streaming**: PDF data is streamed to the client
+- **User Interface**: Simple UI for testing PDF generation
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- [Bun](https://bun.sh/) - JavaScript runtime and package manager
+- [Browserless.io](https://browserless.io/) account and API token
+
+### Installation
+
+1. Clone the repository
+2. Install dependencies:
+
+   ```bash
+   bun install
+   ```
+
+3. Create a `.env.local` file with your Browserless.io token:
+   ```
+   TOKEN=your_browserless_token_here
+   ```
+
+### Running the Application
+
+Start the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000) to access the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### API Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To generate a PDF, send a POST request to `/api/generate-pdf` with a JSON payload:
 
-## Learn More
+```json
+{
+  "url": "https://example.com"
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+The API will return a PDF file as the response.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Implementation Details
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **JSON Validation**: The API validates that the payload contains exactly one property named `url` and rejects any additional properties.
+- **Image Loading**: Custom solution to ensure all images are loaded before PDF generation, without relying on `networkidle0`.
+- **PDF Streaming**: The PDF is streamed directly to the client without buffering the entire file in memory.
 
-## Deploy on Vercel
+## Production Build
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To create a production build:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+bun run build
+bun run start
+```
+
+## Technology Stack
+
+- Next.js 15
+- TypeScript
+- Puppeteer
+- Browserless.io
+- Tailwind CSS + Shadcn
