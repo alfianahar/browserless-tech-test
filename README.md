@@ -2,7 +2,7 @@
 
 A Next.js application that generates PDFs from webpages using Browserless.io and Puppeteer.
 
-## Features
+## Features Based on Requirement
 
 - **API Endpoint**: Generate PDFs from any webpage with a simple JSON payload
 - **Input Validation**: Strict validation of JSON payloads
@@ -53,7 +53,7 @@ To generate a PDF, send a POST request to `/api/generate-pdf` with a JSON payloa
 
 The API will return a PDF file as the response.
 
-### Implementation Details
+### Implementation Details Based on Requirement
 
 - **JSON Validation**: The API validates that the payload contains exactly one property named `url` and rejects any additional properties.
 - **Image Loading**: Custom solution to ensure all images are loaded before PDF generation, without relying on `networkidle0`.
